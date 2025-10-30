@@ -1,0 +1,138 @@
+/* src/styles/Header.css */
+
+.header {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 32px auto 0;
+  font-family: "Times New Roman", Times, serif;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.207),
+    0 4px 8px rgba(0, 0, 0, 0.222);
+  position: relative;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-img {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e94e77;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* === Menú hamburguesa === */
+.hamburger-button {
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 10;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+/* === Navegación === */
+.header-nav .nav-list {
+  display: flex;
+  list-style: none;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: #e94e77;
+  color: white;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
+
+/* === Responsive: móviles === */
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .header-logo {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Mostrar hamburguesa */
+  .hamburger-button {
+    display: flex;
+  }
+
+  /* Ocultar menú por defecto */
+  .header-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 9;
+  }
+
+  .header-nav--open {
+    max-height: 300px;
+    opacity: 1;
+    visibility: visible;
+    padding: 16px 0;
+  }
+
+  .header-nav .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+}
