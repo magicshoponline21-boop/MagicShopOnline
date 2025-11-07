@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from './views/Login';
 import Header from "./components/Header";
 import Home from "./views/Home";
+import RegisterProducts from "./views/RegisterProducts";
 import './styles/Header.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -26,6 +27,14 @@ const Layout = () => {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/registerProducts" 
+            element={
+              <ProtectedRoute>
+                <RegisterProducts />
               </ProtectedRoute>
             } 
           />

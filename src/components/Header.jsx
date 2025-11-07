@@ -73,6 +73,16 @@ const Header = () => {
               Productos
             </button>
           </li>
+
+          <li>
+            <button
+              onClick={() => handleNavigate('/registerProducts')}
+              className={`nav-link ${isActive('/registerProducts') ? 'active' : ''}`}
+            >
+              Registrar Productos
+            </button>
+          </li>
+
           <li>
             <button
               onClick={() => handleNavigate('/preordena')}
