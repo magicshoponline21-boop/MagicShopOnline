@@ -54,7 +54,7 @@
 .header-nav .nav-list {
   display: flex;
   list-style: none;
-  gap: 16px;
+  gap: 12px; /* un poco menos de espacio para mejor cohesión */
   margin: 0;
   padding: 0;
 }
@@ -65,18 +65,36 @@
   font-size: 14px;
   padding: 8px 16px;
   border-radius: 20px;
-  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   font-family: "Times New Roman", Times, serif;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.nav-link:hover,
+/* Fondo rosa suave al hacer hover */
+.nav-link:hover {
+  background-color: #f8d7e5; /* rosa muy claro */
+  color: #e94e77;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(233, 78, 119, 0.15);
+}
+
+/* Estado activo: fondo rosa fuerte */
 .nav-link.active {
   background-color: #e94e77;
   color: white;
+  font-weight: bold;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(233, 78, 119, 0.25);
 }
 
-.nav-link.active {
-  font-weight: bold;
+/* Transición suave al cambiar de estado (hover ↔ active) */
+.nav-link.active:hover {
+  background-color: #d63a65; /* rosa más oscuro al hacer hover en activo */
+  box-shadow: 0 6px 14px rgba(233, 78, 119, 0.3);
 }
 
 /* === Responsive: móviles === */

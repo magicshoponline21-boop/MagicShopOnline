@@ -1,0 +1,112 @@
+/* src/styles/LoginForm.css */
+
+body {
+  background: #f9f9fb;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.login-card {
+  border: 2px solid #f2d4e1; /* ← Bordes suaves rosa claro */
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* sombra ligeramente suavizada */
+  background: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+.login-title {
+  font-weight: 700;
+  color: #000000;
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.login-subtitle {
+  color: #777;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.login-label {
+  font-weight: 600;
+  color: #444;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-input {
+  border: 2px solid #f2d4e5; /* ← Borde rosa definido por defecto */
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #fafcff;
+  color: #333;
+}
+
+.login-input:focus {
+  border-color: #fc8ec5; /* ← Más intenso al hacer foco */
+  box-shadow: 0 0 0 3px rgba(252, 142, 197, 0.25);
+  outline: none;
+}
+
+.password-toggle-btn {
+  border: 2px solid #FFE8F2; /* ← Coincide con el input */
+  background: #fdf2f8; /* fondo muy suave rosa */
+  color: #888;
+  padding: 0.75rem 1rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  background: #ffe8f2;
+  color: #fc8ec5;
+  border-color: #fc8ec5;
+}
+
+.login-btn {
+  background: linear-gradient(90deg, #EC5B92 0%, #FFE8F2 100%);
+  border: 2px solid #ffa1d8; /* ← borde que refuerza el gradiente */
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #000;
+  transition: opacity 0.2s, transform 0.2s, border-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.login-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  border-color: #fc8ec5;
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+.login-alert {
+  border-radius: 10px;
+  font-size: 0.925rem;
+  border: 2px solid #ffe8f2;
+}
+
+/* Responsive: ajuste en móviles */
+@media (max-width: 576px) {
+  .login-card {
+    margin: 1rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+}

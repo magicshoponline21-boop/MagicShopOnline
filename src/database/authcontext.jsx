@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, Children } from "react";
-import {getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+// src/database/authcontext.js
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { appfirebase } from "./firebaseconfig";
 
 const AuthContext = createContext();
@@ -7,51 +8,48 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true); // ← Nuevo: estado de carga
 
-    useEffect(() => {
-        const auth = getAuth(appfirebase);
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUser(user);
-            setIsLoggedIn(!!user);
-        });
-        return () => unsubscribe();
-    }, []);
+  // Escuchar cambios de autenticación
+  useEffect(() => {
+    const auth = getAuth(appfirebase);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsLoggedIn(!!currentUser);
+      setLoading(false); // ← Importante: termina la carga
+    });
 
-      // Detectar estado de conexión
-    useEffect(() => {
-        const handleOnline = () => {
-        console.log("¡Conexión restablecida!");
-        // Opcional: Mostrar una notificación más amigable (puedes usar un componente de notificación en lugar de alert)
-        alert("¡Conexión restablecida!");
-        };
-        const handleOffline = () => {
-        console.log("Estás offline. Los cambios se sincronizarán cuando vuelvas a conectarte.");
-        alert("Estás offline. Los cambios se sincronizarán cuando vuelvas a conectarte.");
-        };
+    return () => unsubscribe();
+  }, []);
 
-        window.addEventListener("online", handleOnline);
-        window.addEventListener("offline", handleOffline);
+  // Eventos de conexión (opcional: mejor sin alert)
+  useEffect(() => {
+    const handleOnline = () => console.log("Conexión restablecida");
+    const handleOffline = () => console.log("Estás offline");
 
-        return () => {
-        window.removeEventListener("online", handleOnline);
-        window.removeEventListener("offline", handleOffline);
-        };
-    }, []);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
-
-    const logout = async () => {
-        const auth = getAuth(appfirebase);
-        await signOut(auth);
-        setIsLoggedIn(false);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{ user, isLoggedIn, logout}}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logout = async () => {
+    const auth = getAuth(appfirebase);
+    await signOut(auth);
+    setIsLoggedIn(false);
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, isLoggedIn, logout, loading }}>
+      {!loading && children} {/* ← Solo renderiza cuando Firebase haya respondido */}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
