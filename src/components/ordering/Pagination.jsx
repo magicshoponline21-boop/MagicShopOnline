@@ -17,7 +17,7 @@ const CustomPagination = ({
   };
 
   const paginationItems = [];
-  const maxPagesToShow = 3;
+  const maxPagesToShow = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
 
