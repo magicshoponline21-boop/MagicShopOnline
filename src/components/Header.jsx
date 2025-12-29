@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // ← Añadido useLocation
 import { useAuth } from '../database/authcontext';
 import '../styles/Header.css';
+import logoMagic from '../assets/Logo_Magic-SinFondo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +42,7 @@ const Header = () => {
         onClick={() => handleNavigate('/home')}
         style={{ cursor: 'pointer' }}
       >
-        <img src="/logo.png" alt="Magic Shop Online" className="logo-img" />
+        <img src={logoMagic} alt="Magic Shop Online" className="logo-img" />
         <span className="logo-text">MAGIC SHOP ONLINE</span>
       </div>
 

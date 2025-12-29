@@ -19,8 +19,8 @@
 }
 
 .logo-img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 }
 
 .logo-text {
@@ -77,14 +77,14 @@
 /* Fondo rosa suave al hacer hover */
 .nav-link:hover {
   background-color: #f8d7e5; /* rosa muy claro */
-  color: #e94e77;
+  color: #ff4c9d;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(233, 78, 119, 0.15);
 }
 
 /* Estado activo: fondo rosa fuerte */
 .nav-link.active {
-  background-color: #e94e77;
+  background-color: #ff4c9d;
   color: white;
   font-weight: bold;
   transform: translateY(-2px);
@@ -104,12 +104,13 @@
     padding: 14px;
     justify-content: space-between; /* Mantén el espacio entre imagen y hamburguesa */
     position: relative;
+    width: 90%;
   }
 
   .header-logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     /* La imagen permanece a la izquierda */
   }
 
@@ -118,9 +119,9 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    color: #e94e77;
+    color: #ff4c9d;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 8;
   }
