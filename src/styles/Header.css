@@ -7,7 +7,7 @@
   align-items: center;
   max-width: 1200px;
   margin: 32px auto 0;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', serif;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.207), 0 4px 8px rgba(0, 0, 0, 0.222);
   position: relative;
 }
@@ -68,7 +68,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', serif;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -192,7 +192,7 @@
     color: #444;
     cursor: pointer;
     border-radius: 0;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Times New Roman', serif;
     transition: background-color 0.2s ease;
   }
 

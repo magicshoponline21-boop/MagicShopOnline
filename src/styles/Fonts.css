@@ -1,5 +1,3 @@
-/* src/styles/fonts.css */
-
 @font-face {
   font-family: 'Times New Roman';
   src: url('/fonts/TimesNewRoman-Regular.ttf') format('truetype');
@@ -9,7 +7,7 @@
 }
 
 @font-face {
-  font-family: 'Times New Roman Bold';
+  font-family: 'Times New Roman';
   src: url('/fonts/TimesNewRoman-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
@@ -17,7 +15,7 @@
 }
 
 @font-face {
-  font-family: 'Times New Roman Italic';
+  font-family: 'Times New Roman';
   src: url('/fonts/TimesNewRoman-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
@@ -25,7 +23,7 @@
 }
 
 @font-face {
-  font-family: 'Times New Roman Bold Italic';
+  font-family: 'Times New Roman';
   src: url('/fonts/TimesNewRoman-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
