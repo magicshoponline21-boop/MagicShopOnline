@@ -97,6 +97,8 @@
   box-shadow: 0 6px 14px rgba(233, 78, 119, 0.3);
 }
 
+
+
 /* === Responsive: móviles === */
 @media (max-width: 768px) {
   .header {
@@ -143,12 +145,11 @@
   /* Menú desplegable minimalista con scroll */
   .header-nav {
     position: absolute;
-    top: 110%;
+    top: 120%;
     left: 0;
     right: 0;
     background-color: #fff;
     border-radius: 12px;
-    /* 👇 Eliminamos max-height y usamos transform en su lugar */
     transform-origin: top;
     transform: scaleY(0);
     opacity: 0;
@@ -177,10 +178,9 @@
     gap: 0;
     padding: 8px 0;
     margin: 0;
-    /* 👇 Importante: no usar max-height ni overflow aquí */
   }
 
-  /* Estilos de .nav-link (igual que antes, pero centrado) */
+  /* Estilos de .nav-link*/
   .nav-link {
     display: block;
     width: 100%;
