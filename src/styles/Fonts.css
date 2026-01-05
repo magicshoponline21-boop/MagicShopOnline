@@ -2,31 +2,31 @@
 
 @font-face {
   font-family: 'Times New Roman';
-  src: url('../utils/fonts/Times New Roman.ttf') format('truetype');
+  src: url('/fonts/TimesNewRoman-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Times New Roman';
-  src: url('../utils/fonts/Times New Roman - Bold.ttf') format('truetype');
+  font-family: 'Times New Roman Bold';
+  src: url('/fonts/TimesNewRoman-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Times New Roman';
-  src: url('../utils/fonts/Times New Roman - Italic.ttf') format('truetype');
+  font-family: 'Times New Roman Italic';
+  src: url('/fonts/TimesNewRoman-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Times New Roman';
-  src: url('../utils/fonts/Times New Roman - Bold Italic.ttf') format('truetype');
+  font-family: 'Times New Roman Bold Italic';
+  src: url('/fonts/TimesNewRoman-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
