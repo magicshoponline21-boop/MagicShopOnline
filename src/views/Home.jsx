@@ -64,7 +64,7 @@ const Home = () => {
               <div className="cascade-item" style={{ animationDelay: '200ms' }}>
                 <h2 className="about-title">Sobre nosotros</h2>
                 <p className="about-text">
-                  Magic Online Shop ofrece un catálogo digital con ropa, joyería y la posibilidad de realizar pedidos en tus plataformas favoritas como Shein y Amazon, entre otras y preordena productos exclusivos.
+                  Magic Shop Online ofrece un catálogo digital con ropa, joyería y la posibilidad de realizar pedidos en tus plataformas favoritas como Shein y Amazon, entre otras y preordena productos exclusivos.
                 </p>
               </div>
             </Col>
