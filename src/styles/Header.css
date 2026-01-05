@@ -1,16 +1,23 @@
 .header {
   background-color: #fff;
   border-radius: 16px;
-  padding: 12px 24px;
+  padding: 0 24px; /* quitamos el padding vertical para control total con height */
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  margin: 32px auto 0;
+  /* margin: 32px auto 0; → ya no aplica con position: fixed */
   font-family: 'Times New Roman', serif;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.207), 0 4px 8px rgba(0, 0, 0, 0.222);
-  position: relative;
+  position: fixed;
+  top: 16px; /* mantiene el "margen superior" visual que tenías (32px / 2 = 16px) */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   height: 60px;
+  width: calc(100% - 32px); /* para mantener el espaciado lateral coherente */
+  max-width: 1200px;
+  box-sizing: border-box; /* asegura que padding no aumente el ancho */
 }
 
 .header-logo {
@@ -103,12 +110,14 @@
 /* === Responsive: móviles === */
 @media (max-width: 768px) {
   .header {
-    flex-wrap: wrap;
-    padding: 1px 16px;
-    justify-content: space-between;
-    position: relative;
+    padding: 0 16px;
     width: 95%;
+    max-width: none;
     height: 50px;
+    top: 8px; /* margen visual más pequeño en móvil */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px; /* opcional: más suave en móvil */
   }
 
   .header-logo {
