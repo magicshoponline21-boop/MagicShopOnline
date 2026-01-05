@@ -19,8 +19,8 @@
 }
 
 .logo-img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 }
 
 .logo-text {
@@ -77,14 +77,14 @@
 /* Fondo rosa suave al hacer hover */
 .nav-link:hover {
   background-color: #f8d7e5; /* rosa muy claro */
-  color: #e94e77;
+  color: #ff4c9d;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(233, 78, 119, 0.15);
 }
 
 /* Estado activo: fondo rosa fuerte */
 .nav-link.active {
-  background-color: #e94e77;
+  background-color: #ff4c9d;
   color: white;
   font-weight: bold;
   transform: translateY(-2px);
@@ -101,31 +101,29 @@
 @media (max-width: 768px) {
   .header {
     flex-wrap: wrap;
-    padding: 14px;
-    justify-content: space-between; /* Mantén el espacio entre imagen y hamburguesa */
+    padding: 12px 16px;
+    justify-content: space-between;
     position: relative;
+    width: 90%;
   }
 
   .header-logo {
     display: flex;
     align-items: center;
-    gap: 8px;
-    /* La imagen permanece a la izquierda */
+    gap: 10px;
   }
 
-  /* Centrar SOLO el texto en la cabecera en móviles */
   .logo-text {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    color: #e94e77;
+    color: #ff4c9d;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 8;
   }
 
-  /* Asegurar que la imagen no se vea afectada */
   .logo-img {
     width: 32px;
     height: 32px;
@@ -133,7 +131,6 @@
     z-index: 9;
   }
 
-  /* Botón hamburguesa a la derecha */
   .hamburger-button {
     display: flex;
     position: absolute;
@@ -143,39 +140,89 @@
     z-index: 10;
   }
 
-  /* Menú desplegable */
+  /* Menú desplegable minimalista con scroll */
   .header-nav {
     position: absolute;
-    top: 100%;
+    top: 110%;
     left: 0;
     right: 0;
-    background-color: white;
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    max-height: 0;
+    background-color: #fff;
+    border-radius: 12px;
+    /* 👇 Eliminamos max-height y usamos transform en su lugar */
+    transform-origin: top;
+    transform: scaleY(0);
     opacity: 0;
     visibility: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    overflow: hidden;
     z-index: 9;
+    pointer-events: none;
   }
 
   .header-nav--open {
-    max-height: 300px;
+    transform: scaleY(1);
     opacity: 1;
     visibility: visible;
-    padding: 16px 0;
+    pointer-events: auto;
   }
 
+  /* Contenedor interno que mantiene el flujo natural */
   .header-nav .nav-list {
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0;
+    margin: 0;
+    /* 👇 Importante: no usar max-height ni overflow aquí */
   }
 
+  /* Estilos de .nav-link (igual que antes, pero centrado) */
   .nav-link {
+    display: block;
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    color: #444;
+    cursor: pointer;
+    border-radius: 0;
+    font-family: "Times New Roman", Times, serif;
+    transition: background-color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    background-color: #f9f9f9;
+    color: #e94e77;
+  }
+
+  .nav-link.active {
+    background-color: #e94e77;
+    color: white;
+    font-weight: bold;
+  }
+
+  .nav-link.active:hover {
+    background-color: #d13a62;
+  }
+
+  /* Scroll solo si hay muchos elementos */
+  .header-nav--open {
+    overflow-y: auto;
+    max-height: 70vh; /* límite razonable para scroll si hay muchos items */
+  }
+
+  /* Scrollbar minimalista */
+  .header-nav::-webkit-scrollbar {
+    width: 6px;
+  }
+  .header-nav::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 3px;
   }
 }

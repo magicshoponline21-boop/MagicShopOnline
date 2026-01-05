@@ -1,16 +1,49 @@
-/* src/styles/Home.css */
+@import './fonts.css';
 
+/* === Animación en cascada al hacer scroll === */
+.cascade-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.cascade-item.cascade-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Hero Section === */
 .home-hero {
-  background: url('https://via.placeholder.com/1920x800?text=Zapatos+de+Moda') no-repeat center center;
+  background: url('../assets/13.jpg') no-repeat center center;
   background-size: cover;
-  padding: 120px 20px;
+  padding: 0 20px;
   text-align: center;
   color: white;
   position: relative;
-  min-height: 80vh;
+  min-height: 75vh;
+  width: 90%;
+  margin: 30px auto 0;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Superponer un fondo semitransparente para mejorar legibilidad */
+.home-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(5px);
+  z-index: 0;
+  pointer-events: none;
+}
+
 .home-hero::before {
   content: '';
   position: absolute;
@@ -18,74 +51,185 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4); /* Sombra suave sobre la imagen */
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
 
 .home-hero > .container {
   position: relative;
   z-index: 2;
+  max-width: 800px;
 }
 
 .hero-title {
   font-size: 2rem;
-  font-weight: 700;
+  font-family: 'Times New Roman Bold', serif;
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
   font-size: 1.75rem;
-  font-weight: 600;
+  font-family: 'Times New Roman Bold', serif;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-text {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
+  font-size: 1.65rem;
+  margin-bottom: 3rem;
   line-height: 1.6;
+  font-family: 'Times New Roman', serif;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero-btn {
-  background: #ff69b4; /* Rosa vibrante como en la imagen */
+  background: #ff4c9d;
   border: none;
-  border-radius: 30px;
-  padding: 12px 32px;
-  font-weight: 600;
+  border-radius: 12px;
+  margin-top: 25px;
+  padding: 8px 20px;
+  font-family: 'Times New Roman', serif;
+  font-weight: bold;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 6px 0.5px 0.9px rgba(197, 55, 119, 0.51);
 }
 
 .hero-btn:hover {
-  background: #ff4c9d;
+  background: rgb(255, 76, 157);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 6px 12px rgba(255, 76, 157, 0.5),
+    0 12px 24px rgba(255, 76, 157, 0.4),
+    0 18px 36px rgba(255, 76, 157, 0.3);
 }
 
-/* Responsive: ajustes en móviles */
+@keyframes shakeWithPause {
+  0%, 25% { transform: translateX(0); }
+  4%, 12% { transform: translateX(-5px); }
+  8% { transform: translateX(5px); }
+  20.1%, 100% { transform: translateX(0); }
+}
+
+.shake-button {
+  animation: shakeWithPause 3s infinite;
+  animation-delay: 2s;
+}
+
+/* === Sección Sobre Nosotros === */
+.about-section {
+  background-color: #ffe6f0;
+  padding: 4rem 20px;
+  border-radius: 16px;
+  margin: 30px auto 0;
+  width: 90%;
+}
+
+.about-image {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-title {
+  font-size: 2.2rem;
+  font-family: 'Times New Roman Bold', serif;
+  color: #333;
+  margin-bottom: 1rem;
+  text-shadow: none;
+}
+
+.about-text {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #555;
+  font-family: 'Times New Roman Italic', serif;
+}
+
+.mission-card,
+.vision-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.mission-card:hover,
+.vision-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-family: 'Times New Roman Bold', serif;
+  margin-bottom: 1rem;
+}
+
+.text-pink {
+  color: #ff4c9d;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  font-family: 'Times New Roman', serif;
+  color: #555;
+  line-height: 1.5;
+}
+
+.about-footer {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 76, 157, 0.2);
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: #666;
+  font-family: 'Times New Roman', serif;
+}
+
+.social-icons .social-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+  transition: transform 0.2s ease;
+}
+
+.social-icons .social-icon:hover {
+  transform: scale(1.1);
+}
+
+/* === Responsive === */
 @media (max-width: 768px) {
   .home-hero {
-    padding: 80px 16px;
-    min-height: 70vh;
+    min-height: 50vh;
+    margin-top: 25px;
+    border-radius: 12px;
+    padding: 0 16px;
+    width: 95%;
   }
 
-  .hero-title {
-    font-size: 1.5rem;
+  .hero-title { font-size: 1.5rem; }
+  .hero-subtitle { font-size: 1.3rem; }
+  .hero-text { font-size: 1.1rem; }
+  .hero-btn { padding: 10px 24px; font-size: 1rem; }
+
+  .about-section {
+    padding: 2rem 16px;
+    width: 95%;
+    margin: 20px auto 0;
   }
 
-  .hero-subtitle {
-    font-size: 1.3rem;
-  }
+  .about-title { font-size: 1.5rem; }
+  .about-text { font-size: 1rem; }
+  .card-title { font-size: 1.2rem; }
+  .card-text { font-size: 0.95rem; }
 
-  .hero-text {
-    font-size: 1.1rem;
-  }
+  .social-icon { width: 32px; height: 32px; }
 
-  .hero-btn {
-    padding: 10px 24px;
-    font-size: 1rem;
+  .cascade-item {
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 }
