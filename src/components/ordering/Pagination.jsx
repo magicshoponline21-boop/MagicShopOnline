@@ -1,69 +1,47 @@
-// src/components/ordering/Pagination.jsx
+// src/components/Pagination.jsx
 import React from "react";
-import { Pagination as BSPagination, Row, Col } from "react-bootstrap"; // ← Renombramos la importación
+import { Pagination as BootstrapPagination } from "react-bootstrap";
 
-const CustomPagination = ({
-  itemsPerPage,
-  totalItems,
-  currentPage,
-  setCurrentPage,
-}) => {
+const Pagination = ({ itemsPerPage, totalItems, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  if (totalPages <= 1) return null; // No mostrar si hay solo una página
 
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
-
-  const paginationItems = [];
-  const maxPagesToShow = 5;
-  let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-  let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-
-  if (endPage - startPage + 1 < maxPagesToShow) {
-    startPage = Math.max(1, endPage - maxPagesToShow + 1);
-  }
-
-  for (let page = startPage; page <= endPage; page++) {
-    paginationItems.push(
-      <BSPagination.Item
-        key={page}
-        active={page === currentPage}
-        onClick={() => handlePageChange(page)}
-      >
-        {page}
-      </BSPagination.Item>
-    );
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
   }
 
   return (
-    <Row className="mt-3">
-      <Col className="d-flex justify-content-center">
-        <BSPagination>
-          <BSPagination.First
-            onClick={() => handlePageChange(1)}
-            disabled={currentPage === 1}
-          />
-          <BSPagination.Prev
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          />
-          {startPage > 1 && <BSPagination.Ellipsis />}
-          {paginationItems}
-          {endPage < totalPages && <BSPagination.Ellipsis />}
-          <BSPagination.Next
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          />
-          <BSPagination.Last
-            onClick={() => handlePageChange(totalPages)}
-            disabled={currentPage === totalPages}
-          />
-        </BSPagination>
-      </Col>
-    </Row>
+    <BootstrapPagination className="justify-content-center mt-3">
+      <BootstrapPagination.First
+        onClick={() => setCurrentPage(1)}
+        disabled={currentPage === 1}
+      />
+      <BootstrapPagination.Prev
+        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+        disabled={currentPage === 1}
+      />
+
+      {pages.map((page) => (
+        <BootstrapPagination.Item
+          key={page}
+          active={page === currentPage}
+          onClick={() => setCurrentPage(page)}
+        >
+          {page}
+        </BootstrapPagination.Item>
+      ))}
+
+      <BootstrapPagination.Next
+        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+        disabled={currentPage === totalPages}
+      />
+      <BootstrapPagination.Last
+        onClick={() => setCurrentPage(totalPages)}
+        disabled={currentPage === totalPages}
+      />
+    </BootstrapPagination>
   );
 };
 
-export default CustomPagination;
+export default Pagination;

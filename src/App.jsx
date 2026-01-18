@@ -1,4 +1,4 @@
-// src/App.jsx
+// src/App.jsx (CORREGIDO)
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "./database/authcontext";
 import ProtectedRoute from "./components/ProtectedRoute"; 
@@ -6,14 +6,12 @@ import Login from './views/Login';
 import Header from "./components/Header";
 import Home from "./views/Home";
 import RegisterProducts from "./views/RegisterProducts";
+import CategoryManagement from "./views/CategoryManagement";
 import './styles/Header.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-// Componente auxiliar para decidir si mostrar el Header
 const Layout = () => {
   const location = useLocation();
-
-  // No mostrar el Header en la página de login
   const hideHeader = location.pathname === '/';
 
   return (
@@ -35,6 +33,15 @@ const Layout = () => {
             element={
               <ProtectedRoute>
                 <RegisterProducts />
+              </ProtectedRoute>
+            } 
+          />
+          {/* ✅ AÑADE ESTA RUTA */}
+          <Route 
+            path="/category-management" 
+            element={
+              <ProtectedRoute>
+                <CategoryManagement />
               </ProtectedRoute>
             } 
           />
