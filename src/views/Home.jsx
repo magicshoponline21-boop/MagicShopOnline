@@ -1,6 +1,7 @@
 // src/views/Home.jsx
 import React, { useEffect} from 'react';
 import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import whatsappIcon from '../assets/whatsapp.png';
 import facebookIcon from '../assets/facebook.png';
@@ -41,9 +42,14 @@ const Home = () => {
           <p className="hero-text">
             Compra ropa, accesorios, productos de tus plataformas favoritas y más!
           </p>
-          <Button variant="primary" className="hero-btn shake-button">
-            Explora nuestra colección
-          </Button>
+          <Button
+      as={Link}
+      to="/productos"
+      variant="primary"
+      className="hero-btn shake-button"
+    >
+      Explora nuestra colección
+    </Button>
         </Container>
       </div>
 

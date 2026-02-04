@@ -1,4 +1,4 @@
-// src/App.jsx (CORREGIDO)
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "./database/authcontext";
 import ProtectedRoute from "./components/ProtectedRoute"; 
@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import Home from "./views/Home";
 import RegisterProducts from "./views/RegisterProducts";
 import CategoryManagement from "./views/CategoryManagement";
+import Products from "./views/Products";              // ← Vista de categorías
+import ProductsByCategory from "./views/ProductsByCategory";  // ← Productos filtrados
 import './styles/Header.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -20,6 +22,7 @@ const Layout = () => {
       <main>
         <Routes>
           <Route path="/" element={<Login />} />
+          
           <Route 
             path="/home" 
             element={
@@ -28,6 +31,7 @@ const Layout = () => {
               </ProtectedRoute>
             } 
           />
+          
           <Route 
             path="/registerProducts" 
             element={
@@ -36,7 +40,7 @@ const Layout = () => {
               </ProtectedRoute>
             } 
           />
-          {/* ✅ AÑADE ESTA RUTA */}
+          
           <Route 
             path="/category-management" 
             element={
@@ -45,6 +49,10 @@ const Layout = () => {
               </ProtectedRoute>
             } 
           />
+
+          {/* Rutas de productos */}
+          <Route path="/productos" element={<Products />} />           {/* Muestra categorías */}
+          <Route path="/productos/:categoryId" element={<ProductsByCategory />} />  {/* Muestra productos de la categoría */}
         </Routes>
       </main>
     </>
