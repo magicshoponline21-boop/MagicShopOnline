@@ -111,37 +111,43 @@ const CategoryManagement = () => {
   };
 
   // Agregar nueva categoría
-  const handleAddCategoria = async () => {
-    if (!nuevaCategoria.nombre || !nuevaCategoria.descripcion) {
-      alert("Por favor, completa todos los campos antes de guardar.");
-      return;
+const handleAddCategoria = async () => {
+  if (!nuevaCategoria.nombre || !nuevaCategoria.descripcion) {
+    alert("Por favor, completa todos los campos antes de guardar.");
+    return;
+  }
+
+  if (nuevaCategoria.nombre.length < 3) {
+    alert("El nombre debe tener al menos 3 caracteres.");
+    return;
+  }
+
+  setShowModal(false);
+
+  try {
+    // 🔹 1. Firestore genera el ID automáticamente
+    const docRef = await addDoc(categoriasCollection, nuevaCategoria);
+
+    // 🔹 2. Guardamos ese ID dentro del mismo documento
+    await updateDoc(docRef, {
+      categoriaId: docRef.id,
+    });
+
+    // 🔹 3. Limpiar formulario
+    setNuevaCategoria({
+      nombre: "",
+      descripcion: "",
+      imagen: "",
+    });
+
+  } catch (error) {
+    console.error("Error al agregar la categoría:", error);
+    if (!isOffline) {
+      alert("Error al agregar la categoría: " + error.message);
     }
-    if (nuevaCategoria.nombre.length < 3) {
-      alert("El nombre debe tener al menos 3 caracteres.");
-      return;
-    }
+  }
+};
 
-    setShowModal(false);
-    const tempId = `temp_${Date.now()}`;
-    const categoriaConId = { ...nuevaCategoria, id: tempId };
-
-    try {
-      setCategorias((prev) => [...prev, categoriaConId]);
-      setNuevaCategoria({ nombre: "", descripcion: "", imagen: "" });
-
-      await addDoc(categoriasCollection, nuevaCategoria);
-
-      if (isOffline) {
-        alert("Sin conexión: Categoría almacenada localmente. Se sincronizará cuando haya internet.");
-      }
-    } catch (error) {
-      console.error("Error al agregar la categoría:", error);
-      setCategorias((prev) => prev.filter((cat) => cat.id !== tempId));
-      if (!isOffline) {
-        alert("Error al agregar la categoría: " + error.message);
-      }
-    }
-  };
 
   // Actualizar categoría existente
   const handleEditCategoria = async () => {

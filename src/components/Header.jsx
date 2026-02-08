@@ -118,6 +118,15 @@ const Header = () => {
             </button>
           </li>
 
+          <li>
+            <button
+              onClick={() => handleNavigate('/Availability')}
+              className={`nav-link ${isActive('/Availability') ? 'active' : ''}`}
+            >
+              Disponibilidad
+            </button>
+          </li>
+
           {isLoggedIn ? (
             <li>
               <button onClick={handleLogout} className="nav-link">

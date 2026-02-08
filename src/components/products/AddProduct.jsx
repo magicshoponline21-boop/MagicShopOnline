@@ -1,5 +1,4 @@
-// src/components/products/AddProduct.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Button, Image } from "react-bootstrap";
 
 const AddProduct = ({ 
@@ -18,6 +17,29 @@ const AddProduct = ({
     disponibilidad: "",
     imagenes: [],
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Resetear formulario cuando se cierra el modal
+  useEffect(() => {
+    if (!showAddModal) {
+      setFormData({
+        nombre: "",
+        precio: "",
+        categoria: "",
+        tipoMaterial: "",
+        disponibilidad: "",
+        imagenes: [],
+      });
+    }
+  }, [showAddModal]);
+
+  const fileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (err) => reject(err);
+    });
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files).slice(0, 3);
@@ -37,7 +59,7 @@ const AddProduct = ({
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validación básica
     if (!formData.nombre.trim()) {
       alert("El nombre es obligatorio");
@@ -60,12 +82,49 @@ const AddProduct = ({
       return;
     }
 
-    // Llamar a la función del padre con los datos
-    onAdd(formData);
+    setIsLoading(true);
+    try {
+      // Convertir TODAS las imágenes a Base64
+      const base64Images = await Promise.all(
+        formData.imagenes.map(file => fileToBase64(file))
+      );
+
+      // Preparar datos listos para Firestore
+      const productData = {
+        nombre: formData.nombre.trim(),
+        precio: Number(formData.precio) || 0,
+        categoria: formData.categoria,
+        tipoMaterial: formData.tipoMaterial || "",
+        disponibilidad: formData.disponibilidad,
+        imagenes: base64Images,
+        imagenPrincipal: base64Images[0] || ""
+      };
+
+      // Llamar a la función del padre con los datos procesados
+      await onAdd(productData);
+
+      // Cerrar modal después de éxito
+      setShowAddModal(false);
+    } catch (error) {
+      console.error("Error al procesar imágenes:", error);
+      alert("Error al guardar el producto. Por favor, intente nuevamente.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setShowAddModal(false);
+    // El reseteo se hace en el useEffect cuando showAddModal cambia
   };
 
   return (
-    <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+    <Modal 
+      show={showAddModal} 
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Agregar Producto</Modal.Title>
       </Modal.Header>
@@ -80,6 +139,7 @@ const AddProduct = ({
               onChange={handleInputChange}
               placeholder="Nombre del producto"
               required
+              disabled={isLoading}
             />
           </Form.Group>
 
@@ -94,6 +154,7 @@ const AddProduct = ({
               min="0"
               step="0.01"
               required
+              disabled={isLoading}
             />
           </Form.Group>
 
@@ -104,6 +165,7 @@ const AddProduct = ({
               value={formData.categoria} 
               onChange={handleInputChange} 
               required
+              disabled={isLoading}
             >
               <option value="">Selecciona una categoría</option>
               {categorias.map((cat) => (
@@ -120,6 +182,7 @@ const AddProduct = ({
               name="tipoMaterial" 
               value={formData.tipoMaterial} 
               onChange={handleInputChange}
+              disabled={isLoading}
             >
               <option value="">(Opcional)</option>
               {tiposMaterial.map((mat) => (
@@ -137,6 +200,7 @@ const AddProduct = ({
               value={formData.disponibilidad} 
               onChange={handleInputChange} 
               required
+              disabled={isLoading}
             >
               <option value="">Selecciona disponibilidad</option>
               {disponibilidades.map((disp) => (
@@ -154,6 +218,7 @@ const AddProduct = ({
               accept="image/*" 
               multiple 
               onChange={handleFileChange} 
+              disabled={isLoading}
             />
             <div className="d-flex gap-2 mt-2 flex-wrap">
               {formData.imagenes.map((file, idx) => (
@@ -161,7 +226,7 @@ const AddProduct = ({
                   <Image 
                     src={URL.createObjectURL(file)} 
                     thumbnail 
-                    style={{ width: '100%', height: 'auto' }} 
+                    style={{ width: '100%', height: 'auto', objectFit: 'cover' }} 
                   />
                   <Button
                     variant="danger"
@@ -169,6 +234,7 @@ const AddProduct = ({
                     className="position-absolute"
                     style={{ top: '2px', right: '2px', padding: '0px 5px' }}
                     onClick={() => handleRemoveImage(idx)}
+                    disabled={isLoading}
                   >
                     ×
                   </Button>
@@ -179,11 +245,19 @@ const AddProduct = ({
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+        <Button 
+          variant="secondary" 
+          onClick={handleClose}
+          disabled={isLoading}
+        >
           Cancelar
         </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          Guardar Producto
+        <Button 
+          variant="primary" 
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Guardando...' : 'Guardar Producto'}
         </Button>
       </Modal.Footer>
     </Modal>
