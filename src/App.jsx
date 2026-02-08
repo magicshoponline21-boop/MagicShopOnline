@@ -9,6 +9,7 @@ import RegisterProducts from "./views/RegisterProducts";
 import CategoryManagement from "./views/CategoryManagement";
 import Products from "./views/Products";              // ← Vista de categorías
 import ProductsByCategory from "./views/ProductsByCategory";  // ← Productos filtrados
+import Availability from "./views/Availability";
 import './styles/Header.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -53,6 +54,8 @@ const Layout = () => {
           {/* Rutas de productos */}
           <Route path="/productos" element={<Products />} />           {/* Muestra categorías */}
           <Route path="/productos/:categoryId" element={<ProductsByCategory />} />  {/* Muestra productos de la categoría */}
+
+          <Route path="/Availability" element={<Availability />} /> 
         </Routes>
       </main>
     </>
