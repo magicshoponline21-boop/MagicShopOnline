@@ -1,150 +1,135 @@
 // src/components/Header.jsx
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'; // ← Añadido useLocation
-import { useAuth } from '../database/authcontext';
-import '../styles/Header.css';
-import logoMagic from '../assets/Logo_Magic-SinFondo.png';
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../database/authcontext";
+import "../styles/Header.css";
+import logoMagic from "../assets/Logo_Magic-SinFondo.png";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation(); // ← Obtiene la ruta actual
+  const location = useLocation();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const isActive = (path) => location.pathname === path;
 
   const handleNavigate = (path) => {
     navigate(path);
-    setIsMenuOpen(false);
+    setIsExpanded(false);
+    setIsMobileOpen(false);
   };
 
   const handleLogout = async () => {
-    try {
-      setIsMenuOpen(false);
-      localStorage.removeItem('adminEmail');
-      localStorage.removeItem('adminPassword');
-      await logout();
-      navigate('/');
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
+    await logout();
+    setIsMobileOpen(false);
+    navigate("/");
   };
 
-  // Función para determinar si un enlace está activo
-  const isActive = (path) => location.pathname === path;
+  const primaryLinks = [
+    { label: "Inicio", path: "/home" },
+    { label: "Productos", path: "/productos" },
+    { label: "Registrar Productos", path: "/registerProducts" },
+    { label: "Preordena ya", path: "/preordena" },
+  ];
+
+  const secondaryLinks = [
+    { label: "Cuentas", path: "/cuentas" },
+    { label: "Preguntas frecuentes", path: "/faq" },
+    { label: "Gestión categorías", path: "/category-management" },
+    { label: "Disponibilidad", path: "/Availability" },
+  ];
 
   return (
     <header className="header">
-      <div
-        className="header-logo"
-        onClick={() => handleNavigate('/home')}
-        style={{ cursor: 'pointer' }}
-      >
-        <img src={logoMagic} alt="Magic Shop Online" className="logo-img" />
-        <span className="logo-text">MAGIC SHOP ONLINE</span>
+      <div className="header-top">
+        <div
+          className="header-logo"
+          onClick={() => handleNavigate("/home")}
+        >
+          <img src={logoMagic} alt="Magic Shop" className="logo-img" />
+          <span className="logo-text">MAGIC SHOP</span>
+        </div>
+
+        {/* Desktop */}
+        <nav className="desktop-nav">
+          <ul className="nav-row">
+            {primaryLinks.map((item) => (
+              <li key={item.path}>
+                <button
+                  onClick={() => handleNavigate(item.path)}
+                  className={`nav-link ${isActive(item.path) ? "active" : ""}`}
+                >
+                  {item.label}
+                </button>
+              </li>
+            ))}
+
+            <li>
+              <button
+                className={`expand-button ${isExpanded ? "open" : ""}`}
+                onClick={() => setIsExpanded(!isExpanded)}
+              >
+                <span className="arrow-icon"></span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Hamburger */}
+        <button
+          className={`hamburger-button ${isMobileOpen ? "open" : ""}`}
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
 
-      <button
-        className="hamburger-button"
-        onClick={toggleMenu}
-        aria-label="Toggle navigation menu"
-      >
-        <span className="hamburger-line"></span>
-        <span className="hamburger-line"></span>
-        <span className="hamburger-line"></span>
-      </button>
+      {/* Segunda fila desktop */}
+      <div className={`desktop-extra ${isExpanded ? "open" : ""}`}>
+        <ul className="nav-row second-row">
+          {secondaryLinks.map((item) => (
+            <li key={item.path}>
+              <button
+                onClick={() => handleNavigate(item.path)}
+                className={`nav-link ${isActive(item.path) ? "active" : ""}`}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
 
-      <nav className={`header-nav ${isMenuOpen ? 'header-nav--open' : ''}`}>
-        <ul className="nav-list">
-          <li>
-            <button
-              onClick={() => handleNavigate('/home')}
-              className={`nav-link ${isActive('/home') ? 'active' : ''}`}
-            >
-              Inicio
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => handleNavigate('/productos')}
-              className={`nav-link ${isActive('/productos') ? 'active' : ''}`}
-            >
-              Productos
-            </button>
-          </li>
-
-          <li>
-            <button
-              onClick={() => handleNavigate('/registerProducts')}
-              className={`nav-link ${isActive('/registerProducts') ? 'active' : ''}`}
-            >
-              Registrar Productos
-            </button>
-          </li>
-
-          <li>
-            <button
-              onClick={() => handleNavigate('/preordena')}
-              className={`nav-link ${isActive('/preordena') ? 'active' : ''}`}
-            >
-              Preordena ya
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => handleNavigate('/cuentas')}
-              className={`nav-link ${isActive('/cuentas') ? 'active' : ''}`}
-            >
-              Cuentas
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => handleNavigate('/faq')}
-              className={`nav-link ${isActive('/faq') ? 'active' : ''}`}
-            >
-              Preguntas frecuentes
-            </button>
-          </li>
-
-          <li>
-            <button
-              onClick={() => handleNavigate('/category-management')}
-              className={`nav-link ${isActive('/category-management') ? 'active' : ''}`}
-            >
-              Gestión categorías
-            </button>
-          </li>
-
-          <li>
-            <button
-              onClick={() => handleNavigate('/Availability')}
-              className={`nav-link ${isActive('/Availability') ? 'active' : ''}`}
-            >
-              Disponibilidad
-            </button>
-          </li>
-
-          {isLoggedIn ? (
+          {isLoggedIn && (
             <li>
-              <button onClick={handleLogout} className="nav-link">
+              <button onClick={handleLogout} className="nav-link out">
                 Cerrar Sesión
               </button>
             </li>
-          ) : location.pathname !== '/' ? (
-            <li>
-              <button
-                onClick={() => handleNavigate('/')}
-                className="nav-link"
-              >
-                Iniciar Sesión
-              </button>
-            </li>
-          ) : null}
+          )}
         </ul>
-      </nav>
+      </div>
+
+      {/* MENÚ MÓVIL */}
+      <div className={`mobile-menu ${isMobileOpen ? "open" : ""}`}>
+        {[...primaryLinks, ...secondaryLinks].map((item) => (
+          <button
+            key={item.path}
+            onClick={() => handleNavigate(item.path)}
+            className={`nav-link ${isActive(item.path) ? "active" : ""}`}
+          >
+            {item.label}
+          </button>
+        ))}
+
+        {isLoggedIn && (
+          <button onClick={handleLogout} className="nav-link out">
+            Cerrar Sesión
+          </button>
+        )}
+      </div>
     </header>
   );
 };

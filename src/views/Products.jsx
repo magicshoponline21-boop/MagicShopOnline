@@ -10,39 +10,31 @@ const Products = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "categorias"), (snapshot) => {
-      const categoriesData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setCategories(categoriesData);
+      setCategories(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
     });
 
     return () => unsubscribe();
   }, []);
 
-  const handleCategoryClick = (categoryId) => {
-    navigate(`/productos/${categoryId}`);
-  };
-
   return (
     <div className="products-container">
-
       <div className="categories-container">
         {categories.map((category) => (
           <div
             key={category.id}
             className="category-item"
-            onClick={() => handleCategoryClick(category.id)}
-            role="button"
-            tabIndex={0}
-            aria-label={`Ver productos de ${category.nombre}`}
+            onClick={() => navigate(`/productos/${category.id}`)}
           >
             <div className="category-card">
               <img
                 src={category.imagen}
                 alt={category.nombre}
                 className="category-image"
-                loading="lazy"
               />
             </div>
             <span className="category-name">{category.nombre}</span>

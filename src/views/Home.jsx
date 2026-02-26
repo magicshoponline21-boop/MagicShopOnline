@@ -37,7 +37,7 @@ const Home = () => {
       {/* Hero Section - sin animación de scroll */}
       <div className="home-hero">
         <Container>
-          <h1 className="hero-title">Bienvenidos a MAGIC SHOP ONLINE</h1>
+          <h1 className="hero-title">Bienvenidos a Magic Shop</h1>
           <h2 className="hero-subtitle">¡Estilo a tu alcance!</h2>
           <p className="hero-text">
             Compra ropa, accesorios, productos de tus plataformas favoritas y más!

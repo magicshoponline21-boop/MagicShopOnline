@@ -1,239 +1,213 @@
 .header {
-  background-color: #fff;
+  background: white;
   border-radius: 16px;
-  padding: 0 24px; /* quitamos el padding vertical para control total con height */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1200px;
+  z-index: 1000;
+  padding: 0 24px;
+  transition: all 0.4s ease;
+}
+
+/* Fila superior */
+.header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  /* margin: 32px auto 0; → ya no aplica con position: fixed */
-  font-family: 'Times New Roman', serif;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.207), 0 4px 8px rgba(0, 0, 0, 0.222);
-  position: fixed;
-  top: 16px; /* mantiene el "margen superior" visual que tenías (32px / 2 = 16px) */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
   height: 60px;
-  width: calc(100% - 32px); /* para mantener el espaciado lateral coherente */
-  max-width: 1200px;
-  box-sizing: border-box; /* asegura que padding no aumente el ancho */
 }
 
+/* Logo */
 .header-logo {
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .logo-img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
 }
 
 .logo-text {
-  font-size: 18px;
+  font-family: 'Times New Roman', Times;
   font-weight: bold;
-  color: #e94e77;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #ff4c9d;
 }
 
-/* === Menú hamburguesa === */
+/* Navegación escritorio */
+.desktop-nav {
+  display: flex;
+}
+
+.nav-row {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Links */
+.nav-link {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Times New Roman', Times;
+}
+
+.nav-link:hover {
+  background: #f8d7e5;
+  color: #ff4c9d;
+}
+
+.nav-link.active {
+  background: #ff4c9d;
+  color: white;
+}
+
+/* Botón expandir */
+.expand-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #ff4c9d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.expand-button:hover {
+  background: #d63a65;
+}
+
+/* Flecha */
+.arrow-icon {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+/* Cuando está abierta */
+.expand-button.open .arrow-icon {
+  transform: rotate(-135deg);
+}
+
+/* Segunda fila escritorio */
+.desktop-extra {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.desktop-extra.open {
+  max-height: 200px;
+  opacity: 1;
+  padding-bottom: 12px;
+}
+
+.second-row {
+  justify-content: center;
+  padding-top: 12px;
+}
+
+/* Móvil */
 .hamburger-button {
-  display: none; /* Oculto por defecto */
-  flex-direction: column;
+  display: none;
+  font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
-  z-index: 10;
 }
 
-.hamburger-line {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  margin: 3px 0;
-  transition: 0.3s;
-  border-radius: 2px;
-}
-
-/* === Navegación === */
-.header-nav .nav-list {
-  display: flex;
-  list-style: none;
-  gap: 12px; /* un poco menos de espacio para mejor cohesión */
-  margin: 0;
-  padding: 0;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-family: 'Times New Roman', serif;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Fondo rosa suave al hacer hover */
-.nav-link:hover {
-  background-color: #f8d7e5; /* rosa muy claro */
-  color: #ff4c9d;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(233, 78, 119, 0.15);
-}
-
-/* Estado activo: fondo rosa fuerte */
-.nav-link.active {
-  background-color: #ff4c9d;
-  color: white;
-  font-weight: bold;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(233, 78, 119, 0.25);
-}
-
-/* Transición suave al cambiar de estado (hover ↔ active) */
-.nav-link.active:hover {
-  background-color: #d63a65; /* rosa más oscuro al hacer hover en activo */
-  box-shadow: 0 6px 14px rgba(233, 78, 119, 0.3);
+.mobile-menu {
+  display: none;
 }
 
 
 
-/* === Responsive: móviles === */
+/* RESPONSIVE */
+
+
 @media (max-width: 768px) {
-  .header {
-    padding: 0 16px;
-    width: 95%;
-    max-width: none;
-    height: 50px;
-    top: 8px; /* margen visual más pequeño en móvil */
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 12px; /* opcional: más suave en móvil */
-  }
 
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .logo-text {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    font-family: 'Times New Roman Bold', serif;
-    color: #ff4c9d;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 8;
-  }
-
-  .logo-img {
-    width: 50px;
-    height: 50px;
-    position: relative;
-    z-index: 9;
+  .desktop-nav,
+  .desktop-extra {
+    display: none;
   }
 
   .hamburger-button {
     display: flex;
-    position: absolute;
-    right: 16px;
-    top: 48%;
-    transform: translateY(-50%);
-    z-index: 10;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
-  /* Menú desplegable minimalista con scroll */
-  .header-nav {
+  .hamburger-button span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    border-radius: 3px;
+    transition: 0.3s;
+  }
+
+  /* Animación hamburguesa */
+  .hamburger-button.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger-button.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-button.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* Menú móvil */
+  .mobile-menu {
     position: absolute;
-    top: 120%;
+    top: 100%;
     left: 0;
     right: 0;
-    background-color: #fff;
-    border-radius: 12px;
-    transform-origin: top;
-    transform: scaleY(0);
+    background: white;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 8px;
+
     opacity: 0;
-    visibility: hidden;
-    transition:
-      transform 0.3s ease,
-      opacity 0.3s ease,
-      visibility 0.3s ease;
-    overflow: hidden;
-    z-index: 9;
+    transform: translateY(-10px);
     pointer-events: none;
+    transition: all 0.3s ease;
   }
 
-  .header-nav--open {
-    transform: scaleY(1);
+  .mobile-menu.open {
     opacity: 1;
-    visibility: visible;
+    transform: translateY(0);
     pointer-events: auto;
   }
 
-  /* Contenedor interno que mantiene el flujo natural */
-  .header-nav .nav-list {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 8px 0;
-    margin: 0;
-  }
-
-  /* Estilos de .nav-link*/
-  .nav-link {
-    display: block;
+  .mobile-menu .nav-link {
     width: 100%;
     text-align: center;
-    padding: 12px 24px;
-    background: transparent;
-    border: none;
-    font-size: 15px;
-    color: #444;
-    cursor: pointer;
-    border-radius: 0;
-    font-family: 'Times New Roman', serif;
-    transition: background-color 0.2s ease;
-  }
-
-  .nav-link:hover {
-    background-color: #f9f9f9;
-    color: #e94e77;
-  }
-
-  .nav-link.active {
-    background-color: #e94e77;
-    color: white;
-    font-weight: bold;
-  }
-
-  .nav-link.active:hover {
-    background-color: #d13a62;
-  }
-
-  /* Scroll solo si hay muchos elementos */
-  .header-nav--open {
-    overflow-y: auto;
-    max-height: 70vh; /* límite razonable para scroll si hay muchos items */
-  }
-
-  /* Scrollbar minimalista */
-  .header-nav::-webkit-scrollbar {
-    width: 6px;
-  }
-  .header-nav::-webkit-scrollbar-thumb {
-    background: #e0e0e0;
-    border-radius: 3px;
   }
 }
