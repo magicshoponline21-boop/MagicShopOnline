@@ -9,6 +9,7 @@ import RegisterProducts from "./views/RegisterProducts";
 import CategoryManagement from "./views/CategoryManagement";
 import Products from "./views/Products";              // ← Vista de categorías
 import ProductsByCategory from "./views/ProductsByCategory";  // ← Productos filtrados
+import ViewAccounts from "./views/ViewAccounts";
 import Availability from "./views/Availability";
 import './styles/Header.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -47,6 +48,15 @@ const Layout = () => {
             element={
               <ProtectedRoute>
                 <CategoryManagement />
+              </ProtectedRoute>
+            } 
+          />
+
+          <Route 
+            path="/accounts" 
+            element={
+              <ProtectedRoute>
+                <ViewAccounts />
               </ProtectedRoute>
             } 
           />

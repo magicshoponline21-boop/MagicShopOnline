@@ -1,0 +1,69 @@
+.gestion-producto-titulo { 
+  font-family: 'Times New Roman', serif;
+  color: #000; 
+  text-align: center; 
+  margin-bottom: 1rem; 
+  padding: 0 15px; 
+  margin-top: 10% !important; 
+}
+
+/* Botón Agregar Producto */
+.btn-agregar-producto {
+  background-color: #EC5B92;
+  border-color: #EC5B92;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: 'Times New Roman', serif;;
+  box-shadow: 0 4px 10px rgba(236, 91, 146, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-agregar-producto:hover {
+  background-color: #d94b7f; /* rosa más oscuro */
+  border-color: #d94b7f;
+  box-shadow: 0 6px 14px rgba(217, 75, 127, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-agregar-producto:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(217, 75, 127, 0.4);
+}
+
+.btn-agregar-producto:focus {
+  box-shadow: 0 0 0 0.25rem rgba(236, 91, 146, 0.4);
+}
+
+@media (max-width: 768px) {
+
+  .gestion-producto-titulo {
+    margin-top: 25% !important;
+    font-size: 20px;
+  }
+
+  .btn-agregar-producto {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .gestion-producto-titulo {
+    margin-top: 30% !important;
+    font-size: 20px;
+  }
+
+  .btn-agregar-producto {
+    width: 80%;
+    padding: 12px 0;
+    font-size: 14px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 8px;
+  }
+
+}

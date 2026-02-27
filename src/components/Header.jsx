@@ -35,7 +35,7 @@ const Header = () => {
   ];
 
   const secondaryLinks = [
-    { label: "Cuentas", path: "/cuentas" },
+    { label: "Cuentas", path: "/accounts" },
     { label: "Preguntas frecuentes", path: "/faq" },
     { label: "Gestión categorías", path: "/category-management" },
     { label: "Disponibilidad", path: "/Availability" },

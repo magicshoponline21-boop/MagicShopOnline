@@ -10,6 +10,8 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
+import "../styles/ProductsManagement.css";
+
 import ProductTable from "../components/products/ProductTable";
 import AddProduct from "../components/products/AddProduct";
 import EditProduct from "../components/products/EditProduct";
@@ -145,12 +147,15 @@ const RegisterProducts = () => {
 
   return (
     <Container className="mt-4">
-      <h4>Gestión de Productos</h4>
+      <h4 className="gestion-producto-titulo">Gestión de Productos</h4>
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Row className="mb-3">
         <Col>
-          <Button onClick={() => setShowAddModal(true)}>
+          <Button
+            className="btn-agregar-producto"
+            onClick={() => setShowAddModal(true)}
+          >
             Agregar producto
           </Button>
         </Col>
