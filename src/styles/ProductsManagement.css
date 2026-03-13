@@ -7,63 +7,187 @@
   margin-top: 10% !important; 
 }
 
-/* Botón Agregar Producto */
+/* BOTÓN AGREGAR */
+
 .btn-agregar-producto {
   background-color: #EC5B92;
   border-color: #EC5B92;
   color: #fff;
-  margin-bottom: 10px;
-  font-family: 'Times New Roman', serif;;
+  margin-bottom: 15px;
+  font-family: 'Times New Roman', serif;
   box-shadow: 0 4px 10px rgba(236, 91, 146, 0.4);
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .btn-agregar-producto:hover {
-  background-color: #d94b7f; /* rosa más oscuro */
+  background-color: #d94b7f;
   border-color: #d94b7f;
-  box-shadow: 0 6px 14px rgba(217, 75, 127, 0.6);
-  transform: translateY(-1px);
 }
 
-.btn-agregar-producto:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(217, 75, 127, 0.4);
+/* ---------- TABLA ---------- */
+
+.tabla-productos{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  background:white;
 }
 
-.btn-agregar-producto:focus {
-  box-shadow: 0 0 0 0.25rem rgba(236, 91, 146, 0.4);
+/* HEADER */
+
+.tabla-productos thead{
+  background:#EC5B92;
+  color:white;
 }
 
-@media (max-width: 768px) {
-
-  .gestion-producto-titulo {
-    margin-top: 25% !important;
-    font-size: 20px;
-  }
-
-  .btn-agregar-producto {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 15px;
-    margin-bottom: 8px;
-  }
-
+.tabla-productos thead th{
+  padding:14px;
+  font-weight:600;
+  text-align:center;
 }
 
-@media (max-width: 480px) {
+/* FILAS */
 
-  .gestion-producto-titulo {
-    margin-top: 30% !important;
-    font-size: 20px;
-  }
+.tabla-productos tbody tr{
+  transition:background 0.2s ease;
+}
 
-  .btn-agregar-producto {
-    width: 80%;
-    padding: 12px 0;
-    font-size: 14px;
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 8px;
-  }
+.tabla-productos tbody tr:hover{
+  background:#fafafa;
+}
 
+/* CELDAS */
+
+.tabla-productos td{
+  padding:14px;
+  vertical-align:middle;
+  border-top:1px solid #e6e6e6;
+}
+
+/* LINEAS VERTICALES */
+
+.tabla-productos th:not(:last-child),
+.tabla-productos td:not(:last-child){
+  border-right:1px solid #e6e6e6;
+}
+
+/* ---------- ANCHO DE COLUMNAS ---------- */
+
+.tabla-productos th:nth-child(1),
+.tabla-productos td:nth-child(1){
+  width:120px;
+}
+
+.tabla-productos th:nth-child(2),
+.tabla-productos td:nth-child(2){
+  width:200px;
+  text-align:left;
+}
+
+.tabla-productos th:nth-child(3),
+.tabla-productos td:nth-child(3){
+  width:110px;
+  text-align:center;
+}
+
+.tabla-productos th:nth-child(4),
+.tabla-productos td:nth-child(4){
+  width:160px;
+}
+
+.tabla-productos th:nth-child(5),
+.tabla-productos td:nth-child(5){
+  width:130px;
+}
+
+.tabla-productos th:nth-child(6),
+.tabla-productos td:nth-child(6){
+  width:110px;
+  text-align:center;
+}
+
+/* ---------- TEXTO NOMBRE ---------- */
+
+.tabla-productos td:nth-child(2){
+  font-weight:500;
+  line-height:1.3;
+  word-break:break-word;
+}
+
+/* ---------- PRECIO ---------- */
+
+.tabla-productos td:nth-child(3){
+  font-weight:600;
+  color:#EC5B92;
+}
+
+/* ---------- BADGE DISPONIBILIDAD ---------- */
+
+.badge-disponible{
+  background:#e6f7ec;
+  color:#1a7f37;
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:6px;
+  font-weight:500;
+}
+
+/* ---------- IMAGEN ---------- */
+
+.celda-imagen{
+  padding:10px;
+}
+
+.image-slider{
+  width:95px;
+  height:80px;
+  margin:auto;
+  position:relative;
+}
+
+.product-image{
+  width:95px;
+  height:80px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+/* BOTONES SLIDER */
+
+.slider-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:22px;
+  height:22px;
+  border:none;
+  border-radius:5px;
+  background:rgba(255,255,255,0.6);
+  cursor:pointer;
+}
+
+.slider-btn.left{
+  left:-8px;
+}
+
+.slider-btn.right{
+  right:-8px;
+}
+
+/* ---------- ACCIONES ---------- */
+
+.acciones{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+}
+
+.acciones button{
+  width:32px;
+  height:32px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }

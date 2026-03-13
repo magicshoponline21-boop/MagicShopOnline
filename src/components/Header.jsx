@@ -30,7 +30,7 @@ const Header = () => {
   const primaryLinks = [
     { label: "Inicio", path: "/home" },
     { label: "Productos", path: "/productos" },
-    { label: "Registrar Productos", path: "/registerProducts" },
+    { label: "Gestión Productos", path: "/registerProducts" },
     { label: "Preordena ya", path: "/preordena" },
   ];
 

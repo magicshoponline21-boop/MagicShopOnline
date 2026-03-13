@@ -16,7 +16,7 @@ const LoginForm = ({ email, password, error, setEmail, setPassword, handleSubmit
         <Card className="login-card">
           <Card.Body className="p-4 p-sm-5">
             <div className="text-center mb-4">
-              <h2 className="login-title">Magic Shop Online</h2>
+              <h2 className="login-title">Magic Shop</h2>
               <p className="login-subtitle">Inicia sesión para continuar</p>
             </div>
 
