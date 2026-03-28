@@ -27,7 +27,9 @@ const ProductTable = ({
 
   return (
 
-    <Table responsive className="tabla-productos">
+    <div className="tabla-productos-scroll">
+
+    <Table className="tabla-productos">
 
       <thead>
         <tr>
@@ -147,6 +149,8 @@ const ProductTable = ({
       </tbody>
 
     </Table>
+
+    </div>
 
   );
 

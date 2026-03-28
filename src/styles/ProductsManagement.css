@@ -33,6 +33,13 @@
   background:white;
 }
 
+.tabla-productos-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* HEADER */
 
 .tabla-productos thead{
@@ -41,7 +48,7 @@
 }
 
 .tabla-productos thead th{
-  padding:14px;
+  padding:16px 14px;
   font-weight:600;
   text-align:center;
 }
@@ -59,7 +66,7 @@
 /* CELDAS */
 
 .tabla-productos td{
-  padding:14px;
+  padding:15px 14px;
   vertical-align:middle;
   border-top:1px solid #e6e6e6;
 }
@@ -80,7 +87,7 @@
 
 .tabla-productos th:nth-child(2),
 .tabla-productos td:nth-child(2){
-  width:200px;
+  width:250px;
   text-align:left;
 }
 
@@ -92,7 +99,7 @@
 
 .tabla-productos th:nth-child(4),
 .tabla-productos td:nth-child(4){
-  width:160px;
+  width:220px;
 }
 
 .tabla-productos th:nth-child(5),
@@ -110,8 +117,18 @@
 
 .tabla-productos td:nth-child(2){
   font-weight:500;
-  line-height:1.3;
+  line-height:1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
   word-break:break-word;
+}
+
+.tabla-productos th:nth-child(2),
+.tabla-productos th:nth-child(4),
+.tabla-productos td:nth-child(4) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* ---------- PRECIO ---------- */
@@ -190,4 +207,147 @@
   display:flex;
   align-items:center;
   justify-content:center;
+}
+
+@media (max-width: 992px) {
+  .tabla-productos {
+    min-width: 860px;
+  }
+
+  .tabla-productos th,
+  .tabla-productos td {
+    white-space: normal;
+  }
+
+  .tabla-productos th:nth-child(1),
+  .tabla-productos td:nth-child(1),
+  .tabla-productos th:nth-child(3),
+  .tabla-productos td:nth-child(3),
+  .tabla-productos th:nth-child(5),
+  .tabla-productos td:nth-child(5),
+  .tabla-productos th:nth-child(6),
+  .tabla-productos td:nth-child(6) {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .gestion-producto-titulo {
+    margin-top: 5.5rem !important;
+    font-size: 1.35rem;
+    padding: 0 8px;
+  }
+
+  .btn-agregar-producto {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tabla-productos {
+    min-width: 860px;
+  }
+
+  .tabla-productos thead th,
+  .tabla-productos td {
+    padding: 10px;
+    font-size: 0.88rem;
+  }
+
+  .image-slider,
+  .product-image {
+    width: 78px;
+    height: 66px;
+  }
+
+  .slider-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .slider-btn.left {
+    left: -6px;
+  }
+
+  .slider-btn.right {
+    right: -6px;
+  }
+
+  .acciones {
+    gap: 6px;
+  }
+
+  .acciones button {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gestion-producto-titulo {
+    margin-top: 5rem !important;
+    font-size: 1.2rem;
+  }
+
+  .tabla-productos {
+    min-width: 860px;
+  }
+
+  .tabla-productos td:nth-child(1),
+  .tabla-productos th:nth-child(1) {
+    min-width: 108px;
+    width: 108px;
+  }
+
+  .celda-imagen {
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .image-slider,
+  .product-image {
+    width: 72px;
+    height: 62px;
+  }
+
+  .slider-btn {
+    width: 18px;
+    height: 18px;
+    z-index: 2;
+  }
+
+  .slider-btn.left {
+    left: 2px;
+  }
+
+  .slider-btn.right {
+    right: 2px;
+  }
+
+  .tabla-productos td:nth-child(2),
+  .tabla-productos th:nth-child(2) {
+    padding-left: 14px;
+  }
+
+  .tabla-productos th:nth-child(1),
+  .tabla-productos td:nth-child(1) { width: 120px; min-width: 120px; }
+
+  .tabla-productos th:nth-child(2),
+  .tabla-productos td:nth-child(2) { width: 210px; min-width: 210px; }
+
+  .tabla-productos th:nth-child(3),
+  .tabla-productos td:nth-child(3) { width: 120px; min-width: 120px; }
+
+  .tabla-productos th:nth-child(4),
+  .tabla-productos td:nth-child(4) { width: 170px; min-width: 170px; }
+
+  .tabla-productos th:nth-child(5),
+  .tabla-productos td:nth-child(5) { width: 130px; min-width: 130px; }
+
+  .tabla-productos th:nth-child(6),
+  .tabla-productos td:nth-child(6) { width: 110px; min-width: 110px; }
+
+  .badge-disponible {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
 }
