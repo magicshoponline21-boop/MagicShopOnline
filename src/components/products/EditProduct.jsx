@@ -58,8 +58,17 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
   };
 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files).slice(0, 3);
-    setImagenesEdit(files);
+    const files = Array.from(e.target.files);
+    setImagenesEdit((prev) => {
+      const disponibles = 3 - prev.length;
+      if (disponibles <= 0) {
+        return prev;
+      }
+
+      return [...prev, ...files.slice(0, disponibles)];
+    });
+
+    e.target.value = "";
   };
 
   const handleRemoveImage = (index) => {
@@ -241,7 +250,7 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
                 disabled={isLoading}
               />
               <small className="text-muted d-block mt-1">
-                Selecciona nuevas imágenes para reemplazar las existentes
+                Selecciona imágenes adicionales para agregarlas sin borrar las actuales
               </small>
               <div className="d-flex gap-2 mt-2 flex-wrap">
                 {imagenesEdit.map((img, idx) => (
