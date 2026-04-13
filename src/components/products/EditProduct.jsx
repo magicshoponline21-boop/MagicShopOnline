@@ -3,7 +3,14 @@ import { Modal, Form, Button, Image } from "react-bootstrap";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../database/firebaseconfig";
 
-const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categorias = [], tiposMaterial = [], disponibilidades = [] }) => {
+const EditProduct = ({
+  showEditModal,
+  setShowEditModal,
+  productoEditado,
+  categorias = [],
+  tiposMaterial = [],
+  disponibilidades = [],
+}) => {
   const [formEditado, setFormEditado] = useState({
     nombre: "",
     precio: "",
@@ -11,10 +18,10 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
     tipoMaterial: "",
     disponibilidad: "",
   });
+
   const [imagenesEdit, setImagenesEdit] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Cargar datos SOLO cuando hay un producto y el modal está visible
   useEffect(() => {
     if (showEditModal && productoEditado) {
       setFormEditado({
@@ -24,15 +31,13 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
         tipoMaterial: productoEditado.tipoMaterial || "",
         disponibilidad: productoEditado.disponibilidad || "",
       });
-      
-      // Cargar imágenes existentes
+
       if (productoEditado.imagenes && Array.isArray(productoEditado.imagenes)) {
         setImagenesEdit([...productoEditado.imagenes]);
       } else {
         setImagenesEdit([]);
       }
     } else {
-      // Limpiar formulario cuando se cierra el modal
       setFormEditado({
         nombre: "",
         precio: "",
@@ -59,11 +64,10 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+
     setImagenesEdit((prev) => {
       const disponibles = 3 - prev.length;
-      if (disponibles <= 0) {
-        return prev;
-      }
+      if (disponibles <= 0) return prev;
 
       return [...prev, ...files.slice(0, disponibles)];
     });
@@ -72,10 +76,10 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
   };
 
   const handleRemoveImage = (index) => {
-    setImagenesEdit(prev => {
-      const nuevasImagenes = [...prev];
-      nuevasImagenes.splice(index, 1);
-      return nuevasImagenes;
+    setImagenesEdit((prev) => {
+      const nuevas = [...prev];
+      nuevas.splice(index, 1);
+      return nuevas;
     });
   };
 
@@ -85,118 +89,116 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
       return;
     }
 
-    // Validaciones
     if (!formEditado.nombre.trim()) {
       alert("El nombre es obligatorio");
       return;
     }
+
     if (!formEditado.precio || parseFloat(formEditado.precio) <= 0) {
-      alert("El precio debe ser un número mayor que 0");
+      alert("El precio debe ser mayor que 0");
       return;
     }
+
     if (!formEditado.categoria) {
       alert("La categoría es obligatoria");
       return;
     }
+
     if (!formEditado.disponibilidad) {
       alert("La disponibilidad es obligatoria");
       return;
     }
+
     if (imagenesEdit.length === 0) {
-      alert("Debes tener al menos una imagen");
+      alert("Debe haber al menos una imagen");
       return;
     }
 
     setIsLoading(true);
+
     try {
       const productoRef = doc(db, "productos", productoEditado.id);
 
-      // Convertir solo los archivos nuevos a Base64
+      const categoriaSeleccionada = categorias.find(
+        (c) => c.nombre === formEditado.categoria
+      );
+
       const base64Images = await Promise.all(
         imagenesEdit.map(async (img) => {
           if (img instanceof File) {
             return await fileToBase64(img);
           }
-          return img; // Mantener las imágenes existentes (ya son Base64)
+          return img;
         })
       );
 
-      await setDoc(productoRef, {
-        nombre: formEditado.nombre.trim(),
-        precio: Number(formEditado.precio),
-        categoria: formEditado.categoria,
-        tipoMaterial: formEditado.tipoMaterial,
-        disponibilidad: formEditado.disponibilidad,
-        imagenes: base64Images,
-        imagenPrincipal: base64Images[0],
-      }, { merge: true }); // Usar merge para no perder otros campos
+      await setDoc(
+        productoRef,
+        {
+          nombre: formEditado.nombre.trim(),
+          precio: Number(formEditado.precio),
+          categoria: formEditado.categoria,
+          categoriaId: categoriaSeleccionada?.id || "",
+          tipoMaterial: formEditado.tipoMaterial,
+          disponibilidad: formEditado.disponibilidad,
+          imagenes: base64Images,
+          imagenPrincipal: base64Images[0],
+        },
+        { merge: true }
+      );
 
-      alert("Producto actualizado exitosamente");
+      alert("Producto actualizado correctamente");
       setShowEditModal(false);
     } catch (error) {
-      console.error("Error al actualizar producto:", error);
-      alert("Error al actualizar el producto. Por favor, intente nuevamente.");
+      console.error(error);
+      alert("Error al actualizar el producto");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleClose = () => {
-    setShowEditModal(false);
-  };
-
-  // NO retornar null aquí - el modal debe renderizarse aunque no haya producto
-  // React-Bootstrap manejará la visibilidad con la prop "show"
+  const handleClose = () => setShowEditModal(false);
 
   return (
-    <Modal 
-      show={showEditModal} 
-      onHide={handleClose}
-      backdrop="static"
-      keyboard={false}
-    >
+    <Modal show={showEditModal} onHide={handleClose} backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title>Editar Producto</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         {productoEditado ? (
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control 
-                type="text" 
-                name="nombre" 
-                value={formEditado.nombre} 
-                onChange={handleEditInputChange} 
-                required 
+              <Form.Control
+                type="text"
+                name="nombre"
+                value={formEditado.nombre}
+                onChange={handleEditInputChange}
                 disabled={isLoading}
               />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Precio (C$)</Form.Label>
-              <Form.Control 
-                type="number" 
-                name="precio" 
-                value={formEditado.precio} 
-                onChange={handleEditInputChange} 
-                min="0" 
-                step="0.01"
-                required 
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                type="number"
+                name="precio"
+                value={formEditado.precio}
+                onChange={handleEditInputChange}
                 disabled={isLoading}
               />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Categoría</Form.Label>
-              <Form.Select 
-                name="categoria" 
-                value={formEditado.categoria} 
-                onChange={handleEditInputChange} 
-                required
+              <Form.Select
+                name="categoria"
+                value={formEditado.categoria}
+                onChange={handleEditInputChange}
                 disabled={isLoading}
               >
-                <option value="">Seleccione una categoría</option>
+                <option value="">Seleccione</option>
                 {categorias.map((cat) => (
                   <option key={cat.id} value={cat.nombre}>
                     {cat.nombre}
@@ -207,9 +209,9 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
 
             <Form.Group className="mb-3">
               <Form.Label>Tipo de Material</Form.Label>
-              <Form.Select 
-                name="tipoMaterial" 
-                value={formEditado.tipoMaterial} 
+              <Form.Select
+                name="tipoMaterial"
+                value={formEditado.tipoMaterial}
                 onChange={handleEditInputChange}
                 disabled={isLoading}
               >
@@ -224,14 +226,13 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
 
             <Form.Group className="mb-3">
               <Form.Label>Disponibilidad</Form.Label>
-              <Form.Select 
-                name="disponibilidad" 
-                value={formEditado.disponibilidad} 
-                onChange={handleEditInputChange} 
-                required
+              <Form.Select
+                name="disponibilidad"
+                value={formEditado.disponibilidad}
+                onChange={handleEditInputChange}
                 disabled={isLoading}
               >
-                <option value="">Seleccione una disponibilidad</option>
+                <option value="">Seleccione</option>
                 {disponibilidades.map((disp) => (
                   <option key={disp.id} value={disp.nombre}>
                     {disp.nombre}
@@ -241,32 +242,31 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Imágenes (máximo 3)</Form.Label>
-              <Form.Control 
-                type="file" 
-                accept="image/*" 
-                multiple 
-                onChange={handleFileChange} 
+              <Form.Label>Imágenes</Form.Label>
+              <Form.Control
+                type="file"
+                multiple
+                onChange={handleFileChange}
                 disabled={isLoading}
               />
-              <small className="text-muted d-block mt-1">
-                Selecciona imágenes adicionales para agregarlas sin borrar las actuales
-              </small>
+
               <div className="d-flex gap-2 mt-2 flex-wrap">
                 {imagenesEdit.map((img, idx) => (
-                  <div key={idx} className="position-relative" style={{ width: '100px' }}>
-                    <Image 
-                      src={typeof img === 'string' ? img : URL.createObjectURL(img)} 
-                      thumbnail 
-                      style={{ width: '100%', height: '80px', objectFit: 'cover' }} 
+                  <div key={idx} style={{ position: "relative" }}>
+                    <Image
+                      src={
+                        typeof img === "string"
+                          ? img
+                          : URL.createObjectURL(img)
+                      }
+                      width={80}
+                      height={80}
+                      style={{ objectFit: "cover" }}
                     />
                     <Button
-                      variant="danger"
                       size="sm"
-                      className="position-absolute"
-                      style={{ top: '2px', right: '2px', padding: '0px 5px' }}
+                      variant="danger"
                       onClick={() => handleRemoveImage(idx)}
-                      disabled={isLoading}
                     >
                       ×
                     </Button>
@@ -276,23 +276,16 @@ const EditProduct = ({ showEditModal, setShowEditModal, productoEditado, categor
             </Form.Group>
           </Form>
         ) : (
-          <p className="text-muted">Cargando datos del producto...</p>
+          <p>Cargando...</p>
         )}
       </Modal.Body>
+
       <Modal.Footer>
-        <Button 
-          variant="secondary" 
-          onClick={handleClose}
-          disabled={isLoading}
-        >
+        <Button onClick={handleClose} disabled={isLoading}>
           Cancelar
         </Button>
-        <Button 
-          variant="primary" 
-          onClick={handleEditProducto}
-          disabled={isLoading || !productoEditado}
-        >
-          {isLoading ? 'Actualizando...' : 'Actualizar Producto'}
+        <Button onClick={handleEditProducto} disabled={isLoading}>
+          {isLoading ? "Guardando..." : "Guardar"}
         </Button>
       </Modal.Footer>
     </Modal>
