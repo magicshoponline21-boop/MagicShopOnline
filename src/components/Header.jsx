@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../database/authcontext";
 import "../styles/Header.css";
-import logoMagic from "../assets/Logo_Magic-SinFondo.png";
+import logoMagic from '../assets/MagicOnlineShop-sinFondo.png';
 
 const Header = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -31,14 +31,15 @@ const Header = () => {
     { label: "Inicio", path: "/home" },
     { label: "Productos", path: "/productos" },
     { label: "Gestión Productos", path: "/registerProducts" },
-    { label: "Preordena ya", path: "/preordena" },
+    { label: "Preordena ya", path: "/preorden" },
   ];
 
   const secondaryLinks = [
     { label: "Cuentas", path: "/accounts" },
     { label: "Preguntas frecuentes", path: "/faq" },
     { label: "Gestión categorías", path: "/category-management" },
-    { label: "Disponibilidad", path: "/Availability" },
+    { label: "Disponibilidad", path: "/availability" },
+    { label: "Materiales", path: "/materials" },
   ];
 
   return (

@@ -12,19 +12,20 @@ const EditProduct = ({
   disponibilidades = [],
 }) => {
   const [formEditado, setFormEditado] = useState({
+    codigo: "",
     nombre: "",
     precio: "",
     categoria: "",
     tipoMaterial: "",
     disponibilidad: "",
   });
-
   const [imagenesEdit, setImagenesEdit] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (showEditModal && productoEditado) {
       setFormEditado({
+        codigo: productoEditado.codigo || "",
         nombre: productoEditado.nombre || "",
         precio: productoEditado.precio?.toString() || "",
         categoria: productoEditado.categoria || "",
@@ -135,6 +136,7 @@ const EditProduct = ({
       await setDoc(
         productoRef,
         {
+          codigo: formEditado.codigo.trim(),
           nombre: formEditado.nombre.trim(),
           precio: Number(formEditado.precio),
           categoria: formEditado.categoria,
@@ -168,6 +170,16 @@ const EditProduct = ({
       <Modal.Body>
         {productoEditado ? (
           <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Código</Form.Label>
+              <Form.Control
+                type="text"
+                name="codigo"
+                value={formEditado.codigo}
+                onChange={handleEditInputChange}
+                disabled={isLoading}
+              />
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
