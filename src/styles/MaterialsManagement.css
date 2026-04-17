@@ -1,0 +1,221 @@
+/* src/styles/MaterialsManagement.css */
+
+/* ---------------- TITULO ---------------- */
+.gestion-material-titulo {
+  font-family: "Times New Roman", serif;
+  color: #000;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0 15px;
+  margin-top: 10% !important;
+}
+
+/* ---------------- BOTÓN ---------------- */
+.btn-agregar-material {
+  background-color: #ec5b92;
+  border-color: #ec5b92;
+  color: #fff;
+  margin-bottom: 15px;
+  font-family: "Times New Roman", serif;
+  box-shadow: 0 4px 10px rgba(236, 91, 146, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-agregar-material:hover,
+.btn-agregar-material:focus,
+.btn-agregar-material:active {
+  background-color: #d94b7f !important;
+  border-color: #d94b7f !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+/* ---------------- TABLA ---------------- */
+.tabla-materiales {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: #fff;
+}
+
+.tabla-materiales-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* HEADER */
+.tabla-materiales thead {
+  background: #ec5b92;
+  color: #fff;
+}
+
+.tabla-materiales thead th {
+  padding: 16px 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* FILAS */
+.tabla-materiales tbody tr {
+  transition: background 0.2s ease;
+}
+
+.tabla-materiales tbody tr:hover {
+  background: #fafafa;
+}
+
+/* CELDAS */
+.tabla-materiales td {
+  padding: 15px 14px;
+  vertical-align: middle;
+  border-top: 1px solid #e6e6e6;
+}
+
+/* LÍNEAS VERTICALES */
+.tabla-materiales th:not(:last-child),
+.tabla-materiales td:not(:last-child) {
+  border-right: 1px solid #e6e6e6;
+}
+
+/* ---------------- ANCHO COLUMNAS ---------------- */
+.tabla-materiales th:nth-child(1),
+.tabla-materiales td:nth-child(1) {
+  width: 260px;
+}
+
+.tabla-materiales th:nth-child(2),
+.tabla-materiales td:nth-child(2) {
+  width: auto;
+}
+
+.tabla-materiales th:nth-child(3),
+.tabla-materiales td:nth-child(3) {
+  width: 130px;
+  text-align: center;
+}
+
+/* ---------------- TEXTO ---------------- */
+.tabla-materiales td:nth-child(1) {
+  font-weight: 600;
+  color: #111;
+}
+
+.tabla-materiales td:nth-child(2),
+.tabla-materiales th:nth-child(2) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.45;
+  text-align: left;
+}
+
+/* ---------------- ACCIONES ---------------- */
+.acciones-material {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.acciones-material button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------------- MODALES ---------------- */
+.modal-content {
+  border-radius: 14px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.modal-title {
+  font-family: "Times New Roman", serif;
+}
+
+.modal-footer {
+  border-top: 1px solid #f1f1f1;
+}
+
+/* ---------------- INPUTS ---------------- */
+.form-control:focus,
+.form-select:focus {
+  border-color: #ec5b92;
+  box-shadow: 0 0 0 0.2rem rgba(236, 91, 146, 0.15);
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 992px) {
+  .tabla-materiales {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gestion-material-titulo {
+    margin-top: 5.5rem !important;
+    font-size: 1.35rem;
+    padding: 0 8px;
+  }
+
+  .btn-agregar-material {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tabla-materiales {
+    min-width: 700px;
+  }
+
+  .tabla-materiales th,
+  .tabla-materiales td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .acciones-material {
+    gap: 6px;
+  }
+
+  .acciones-material button {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gestion-material-titulo {
+    margin-top: 5rem !important;
+    font-size: 1.2rem;
+  }
+
+  .tabla-materiales {
+    min-width: 700px;
+  }
+
+  .tabla-materiales th:nth-child(1),
+  .tabla-materiales td:nth-child(1) {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .tabla-materiales th:nth-child(2),
+  .tabla-materiales td:nth-child(2) {
+    width: 320px;
+    min-width: 320px;
+  }
+
+  .tabla-materiales th:nth-child(3),
+  .tabla-materiales td:nth-child(3) {
+    width: 120px;
+    min-width: 120px;
+  }
+}

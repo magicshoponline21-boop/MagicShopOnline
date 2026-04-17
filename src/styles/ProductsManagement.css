@@ -138,15 +138,44 @@
   color:#EC5B92;
 }
 
-/* ---------- BADGE DISPONIBILIDAD ---------- */
-
-.badge-disponible{
-  background:#e6f7ec;
-  color:#1a7f37;
+/* BADGE TABLA */
+.badge-tabla{
   font-size:13px;
   padding:6px 10px;
   border-radius:6px;
   font-weight:500;
+  display:inline-block;
+  font-family:'Times New Roman', serif;
+}
+
+/* BADGE TABLA SIN ANIMACIÓN */
+.badge-tabla{
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:6px;
+  font-weight:500;
+  display:inline-block;
+  font-family:'Times New Roman', serif;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* DISPONIBLE */
+.badge-tabla.disponible{
+  background:#c8f7c5;
+  color:#1b5e20;
+}
+
+/* AGOTADO */
+.badge-tabla.agotado{
+  background:#ffcdd2;
+  color:#b71c1c;
+}
+
+/* PREORDEN */
+.badge-tabla.preorden{
+  background:#d0e3ff;
+  color:#0d47a1;
 }
 
 /* ---------- IMAGEN ---------- */

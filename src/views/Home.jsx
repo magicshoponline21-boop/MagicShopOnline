@@ -6,7 +6,7 @@ import '../styles/Home.css';
 import whatsappIcon from '../assets/whatsapp.png';
 import facebookIcon from '../assets/facebook.png';
 import instagramIcon from '../assets/instagram.png';
-import aboutUsImg from '../assets/Logo_Variant3.png';
+import aboutUsImg from '../assets/MagicOnlineShop.png';
 
 const Home = () => {
   // Función para observar elementos y añadir clase cuando entran en vista
@@ -110,17 +110,21 @@ const Home = () => {
               </Col>
               <Col xs={12} md={6} className="text-center text-md-end">
                 <div className="social-icons d-flex justify-content-center justify-content-md-end gap-3">
-                  <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/+50558684557" target="_blank" rel="noopener noreferrer">
                     <div className="cascade-item" style={{ animationDelay: '600ms' }}>
                       <img src={whatsappIcon} className="social-icon" alt="WhatsApp" />
                     </div>
                   </a>
+
+                  {/* 
                   <a href="https://facebook.com/magicshoponline" target="_blank" rel="noopener noreferrer">
                     <div className="cascade-item" style={{ animationDelay: '700ms' }}>
                       <img src={facebookIcon} className="social-icon" alt="Facebook" />
                     </div>
                   </a>
-                  <a href="https://instagram.com/magicshoponline" target="_blank" rel="noopener noreferrer">
+                  */}
+                  
+                  <a href="https://www.instagram.com/magic_shop_ni?igsh=YnBvdTg3MjZjN3hu" target="_blank" rel="noopener noreferrer">
                     <div className="cascade-item" style={{ animationDelay: '800ms' }}>
                       <img src={instagramIcon} className="social-icon" alt="Instagram" />
                     </div>
