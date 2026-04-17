@@ -46,6 +46,7 @@ const ProductTable = ({
             <th>Imagen</th>
             <th>Nombre</th>
             <th>Precio</th>
+            <th>Código</th>
             <th>Tipo de Material</th>
             <th>Disponibilidad</th>
             <th>Acciones</th>
@@ -55,7 +56,7 @@ const ProductTable = ({
         <tbody>
           {productos.length === 0 ? (
             <tr>
-              <td colSpan="6" className="text-center py-4 text-muted">
+              <td colSpan="7" className="text-center py-4 text-muted">
                 No hay productos para mostrar
               </td>
             </tr>
@@ -100,6 +101,8 @@ const ProductTable = ({
                   <td>{producto.nombre}</td>
 
                   <td>C$ {producto.precio}</td>
+
+                  <td>{producto.codigo || "Sin código"}</td>
 
                   <td>
                     {producto.tipoMaterial ||
