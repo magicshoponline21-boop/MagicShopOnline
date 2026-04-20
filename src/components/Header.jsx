@@ -32,6 +32,7 @@ const Header = () => {
     { label: "Productos", path: "/productos" },
     { label: "Gestión Productos", path: "/registerProducts" },
     { label: "Preordena ya", path: "/preorden" },
+    { label: "Preguntas frecuentes", path: "/pregunfrecuen" },
   ];
 
   const secondaryLinks = [

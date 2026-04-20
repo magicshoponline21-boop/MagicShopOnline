@@ -20,6 +20,7 @@ import PreOrder from "./views/PreOrder";
 import ViewAccounts from "./views/ViewAccounts";
 import Availability from "./views/Availability";
 import Materials from "./views/Materials";
+import FrequentlyQuestions from "./views/FrequentlyQuestions";
 
 import "./styles/Header.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -106,6 +107,9 @@ const Layout = () => {
 
           {/* PREORDEN */}
           <Route path="/preorden" element={<PreOrder />} />
+
+          {/* PREGUNTAS FRECUENTES */}
+          <Route path="/pregunfrecuen" element={<FrequentlyQuestions />} />
 
           {/* FALLBACK */}
           <Route
