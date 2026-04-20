@@ -3,7 +3,6 @@ import "../styles/FrequentlyQuestions.css";
 
 const FrequentlyQuestions = () => {
   const [openQuestion, setOpenQuestion] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const faqs = [
     {
@@ -54,62 +53,30 @@ const FrequentlyQuestions = () => {
     );
   };
 
-  const normalizeText = (value) =>
-    value
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-
-  const filteredFaqs = faqs.filter((faq) => {
-    const normalizedSearch = normalizeText(searchTerm.trim());
-
-    if (!normalizedSearch) {
-      return true;
-    }
-
-    return normalizeText(faq.question).includes(normalizedSearch);
-  });
-
   return (
     <div className="frequently-container">
       <h1 className="category-title">Preguntas Frecuentes</h1>
 
-      <div className="search-container">
-        <input
-          type="text"
-          className="search-bar"
-          placeholder="Busca una pregunta..."
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-      </div>
-
       <div className="faq-list">
-        {filteredFaqs.length === 0 ? (
-          <div className="faq-empty-state">
-            No se encontraron preguntas con ese texto.
-          </div>
-        ) : (
-          filteredFaqs.map((faq) => {
-            const isOpen = openQuestion === faq.question;
+        {faqs.map((faq) => {
+          const isOpen = openQuestion === faq.question;
 
-            return (
-              <div key={faq.question} className={`faq-item ${isOpen ? "open" : ""}`}>
-                <button
-                  type="button"
-                  className="faq-question"
-                  onClick={() => toggleFaq(faq.question)}
-                  aria-expanded={isOpen}
-                >
-                  <span>{faq.question}</span>
-                  <span className="faq-arrow">▾</span>
-                </button>
+          return (
+            <div key={faq.question} className={`faq-item ${isOpen ? "open" : ""}`}>
+              <button
+                type="button"
+                className="faq-question"
+                onClick={() => toggleFaq(faq.question)}
+                aria-expanded={isOpen}
+              >
+                <span>{faq.question}</span>
+                <span className="faq-arrow">▾</span>
+              </button>
 
-                {isOpen && <p className="faq-answer">{faq.answer}</p>}
-              </div>
-            );
-          })
-        )}
+              {isOpen && <p className="faq-answer">{faq.answer}</p>}
+            </div>
+          );
+        })}
       </div>
 
       <div className="help-section">
